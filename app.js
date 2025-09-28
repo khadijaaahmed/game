@@ -10,6 +10,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const asyncWrap = require("./utils/asyncWrap.js");
 const Review = require("./Models/review");
 const {listingSchema} = require("./schema.js");
+const User = require("./Models/user");
 
 
 // --- MIDDLEWARE & CONFIG ---
@@ -47,9 +48,66 @@ app.get("/signup", (req, res) => {
     res.render("users/signup.ejs");
 });
 
+app.post("/signup", async (req, res) => {
+    try {
+        let { username, email, password } = req.body;
+        
+        // Create new user
+        const newUser = new User({
+            username: username,
+            email: email,
+            password: password // In production, hash this password!
+        });
+        await newUser.save();
+        
+        // Render signupuser page with username
+        res.render("signupuser.ejs", { username: username });
+        
+    } catch (err) {
+        console.log("Error saving user:", err);
+        res.status(500).send("Error creating account");
+    }
+});
+
+
 // Route to render the LOGIN form
 app.get("/login", (req, res) => {
     res.render("users/login.ejs");
+});
+
+app.post("/login", async (req, res) => {
+    try {
+        let { username, password } = req.body;
+        
+        // Find user by username
+        const user = await User.findOne({ username: username });
+        
+        // Authentication check
+        if (!user) {
+            return res.render("users/login.ejs", { 
+                error: "Invalid username or password" 
+            });
+        }
+        
+        // Check password (in production, use bcrypt for hashing)
+        if (user.password !== password) {
+            return res.render("users/login.ejs", { 
+                error: "Invalid username or password" 
+            });
+        }
+        
+        // Login successful - render loginuser page with user data
+        res.render("loginuser.ejs", { 
+            username: user.username,
+            email: user.email 
+        });
+        
+    } catch (err) {
+        console.log("Login error:", err);
+        res.status(500).render("users/login.ejs", { 
+            error: "Server error during login" 
+        });
+    }
 });
 
 // 1. INDEX ROUTE - Show all listings

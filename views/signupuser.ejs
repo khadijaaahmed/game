@@ -1,0 +1,98 @@
+<% layout('layouts/boilerplate') %>
+<div class="container mt-4">
+    <!-- Welcome Section -->
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="card shadow-sm border-0">
+                <div class="card-body py-5">
+                    <!-- User Icon -->
+                    <div class="mb-4">
+                        <i class="fas fa-user-circle fa-5x text-primary"></i>
+                    </div>
+                    
+                    <!-- Welcome Message -->
+                    <h1 class="display-6 mb-3">Welcome, @<%= username %>! 🎉</h1>
+                    <p class="lead text-muted mb-4">Your account has been created successfully!</p>
+                    
+                    <!-- Create Post Button (Instagram Style) -->
+                    <div class="mb-5">
+                        <button class="btn btn-primary btn-lg rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#createPostModal">
+                            <i class="fas fa-plus me-2"></i>Create Your First Post
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What's Next Section -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h3 class="card-title mb-0">What would you like to do next?</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="p-3 border rounded">
+                                <i class="fas fa-home fa-2x text-primary mb-3"></i>
+                                <h5>Explore Listings</h5>
+                                <p class="text-muted">Browse through amazing places</p>
+                                <a href="/listings" class="btn btn-outline-primary btn-sm">Explore</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="p-3 border rounded">
+                                <i class="fas fa-plus-circle fa-2x text-success mb-3"></i>
+                                <h5>Create Listing</h5>
+                                <p class="text-muted">Share your own space</p>
+                                <a href="/listings/new" class="btn btn-outline-success btn-sm">Create</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="p-3 border rounded">
+                                <i class="fas fa-cog fa-2x text-info mb-3"></i>
+                                <h5>Edit Profile</h5>
+                                <p class="text-muted">Customize your account</p>
+                                <a href="/profile/edit" class="btn btn-outline-info btn-sm">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Post Modal -->
+<div class="modal fade" id="createPostModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/posts/create" method="POST">
+                    <div class="mb-3">
+                        <label for="postTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="postTitle" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="postContent" class="form-label">Description</label>
+                        <textarea class="form-control" id="postContent" name="content" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="postImage" class="form-label">Image URL</label>
+                        <input type="url" class="form-control" id="postImage" name="imageUrl">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Create Post</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>

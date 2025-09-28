@@ -1,0 +1,159 @@
+
+<% layout('layouts/boilerplate') %>
+<div class="container mt-4">
+    <!-- Welcome Section -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-10">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center py-4">
+                    <!-- User Profile -->
+                    <div class="mb-4">
+                        <i class="fas fa-user-circle fa-4x text-primary mb-3"></i>
+                        <h2 class="mb-1">Welcome back, <%= username %>! 👋</h2>
+                        <p class="text-muted"><%= email %></p>
+                    </div>
+                    
+                    <div class="alert alert-success border-0">
+                        <h4 class="alert-heading">Welcome to Your Account!</h4>
+                        <p class="mb-0">Manage your listings, explore new places, and connect with other travelers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Your Listings Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h3 class="border-bottom pb-2 mb-4">Your Listings</h3>
+            
+            <!-- Image Gallery Grid -->
+            <div class="row g-3">
+                <!-- Listing Item 1 -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60" class="card-img-top listing-image" alt="Listing Image 1" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Modern Loft in Downtown</h5>
+                            <p class="card-text">Stay in the heart of the city in this stylish loft apartment. Perfect for urban explorers!</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-bold">Rs 1200</span>
+                                <small class="text-muted">/Per night</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Listing Item 2 -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100">
+                        <img src="https://images.unsplash.com/photo-1533619239233-6280475a633a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHNreSUyMHZhY2F0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60" class="card-img-top listing-image" alt="Listing Image 2" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Historic Brownstone in Boston</h5>
+                            <p class="card-text">Step back in time in this elegant historic brownstone located in the heart of Boston</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-bold">Rs 2200</span>
+                                <small class="text-muted">/Per night</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Listing Item 3 -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100">
+                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60" class="card-img-top listing-image" alt="Listing Image 3" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Mountain Retreat</h5>
+                            <p class="card-text">Unplug and unwind in this peaceful mountain cabin. Surrounded by nature, it's a perfect place to recharge</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-bold">Rs1000</span>
+                                <small class="text-muted">/Per night</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create New Post Section -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body text-center py-5">
+                    <h3 class="mb-4">Create New Listing</h3>
+                    <p class="text-muted mb-4">Share your space with travelers around the world</p>
+                    
+                    <!-- Plus Sign Button - Instagram Style -->
+                    <div class="create-post-btn">
+                        <button class="btn btn-outline-primary rounded-circle p-4" data-bs-toggle="modal" data-bs-target="#createPostModal">
+                            <i class="fas fa-plus fa-2x"></i>
+                        </button>
+                        <p class="mt-3 text-muted">Click to add new listing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Post Modal -->
+<div class="modal fade" id="createPostModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Listing</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/listings/create" method="POST">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="listingTitle" class="form-label">Listing Title</label>
+                            <input type="text" class="form-control" id="listingTitle" name="title" placeholder="Beautiful Beach House" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="listingPrice" class="form-label">Price per Night ($)</label>
+                            <input type="number" class="form-control" id="listingPrice" name="price" placeholder="99" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="listingLocation" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="listingLocation" name="location" placeholder="Bali, Indonesia" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="listingDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="listingDescription" name="description" rows="3" placeholder="Describe your space..." required></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="listingImage" class="form-label">Image URL</label>
+                        <input type="url" class="form-control" id="listingImage" name="imageUrl" placeholder="https://example.com/image.jpg">
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Create Listing</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Custom CSS -->
+<style>
+    .create-post-btn .btn {
+        width: 100px;
+        height: 100px;
+        border-width: 2px;
+        transition: all 0.3s ease;
+    }
+    
+    .create-post-btn .btn:hover {
+        transform: scale(1.1);
+        background-color: #0d6efd;
+        color: white;
+    }
