@@ -1,5 +1,5 @@
 <% layout('/layouts/boilerplate') %>
-<body>
+<!-- <body>
     <div class="row">
     <div class="col-8 offset-2 mb-2">
     <h2><%= singleList.title %></h2>
@@ -47,4 +47,120 @@
         </form>
     </div>
    
+</body> -->
+<% layout('/layouts/boilerplate') %>
+<body>
+    <div class="row">
+        <div class="col-8 offset-2 mb-2">
+            <h2><%= singleList.title %></h2>
+        </div>
+    </div>
+    
+    <div class="card col-6 offset-2">
+        <img src="<%= singleList.image?.url%>" class="card-img-top show-img" alt="...">
+        <div class="card-body">
+            <p class="card-text">
+                <ul>
+                    <li><b><%= singleList.title %></b></li>
+                    <li><%= singleList.description %></li>
+                    <li>&#8360;<%= singleList.price.toLocaleString("en-PK") %>/night</li>
+                    <li><%= singleList.location %></li>
+                    <li><%= singleList.country %></li>
+                </ul>
+            </p>
+        </div>
+    </div>
+    
+    <div class="show-btns mb-2">
+        <a class="btn btn-danger col- offset-2" href="/listings/<%= singleList._id %>/edit">EDIT LIST</a>
+        <form method="POST" action="/listings/<%= singleList._id %>?_method=DELETE">
+            <button type="submit" class="btn btn-dark offset-10">DELETE</button>
+        </form>
+    </div>
+    
+    <br>
+    
+    <!-- Debug: Check if reviews exist and show raw data -->
+    <% if (singleList.reviews && singleList.reviews.length > 0) { %>
+        <div class="col-8 offset-2 mb-4">
+            <hr/>
+            <h4>Customer Reviews</h4>
+            
+            <% singleList.reviews.forEach(function(review, index) { %>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="card-title mb-0">Review #<%= index + 1 %></h5>
+                            <div class="rating-display">
+                                <% for (let i = 1; i <= 5; i++) { %>
+                                    <% if (i <= review.rating) { %>
+                                        <span class="text-warning">★</span>
+                                    <% } else { %>
+                                        <span class="text-secondary">★</span>
+                                    <% } %>
+                                <% } %>
+                                <span class="ms-2">Rating: <%= singleList.rating %>/5</span>
+                            </div>
+                        </div>
+                        <p class="card-text"><strong>Comment:</strong> <%= singleList.comment %></p>
+                        <p class="text-muted small">
+                            Posted on: <%= review.createdAt ? new Date(review.createdAt).toLocaleDateString() : 'Recently' %>
+                        </p>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <div class="col-8 offset-2 mb-4">
+            <hr/>
+            <h4>Customer Reviews</h4>
+            <p class="text-muted">No reviews yet. Be the first to leave a review!</p>
+        </div>
+    <% } %>
+    
+    <!-- Review Form Section -->
+    <div class="col-8 offset-2 mb-3">
+        <hr/>
+        <h4>Leave your experience</h4>
+
+        <form action="/listings/<%= singleList._id %>/reviews" method="POST" novalidate class="needs-validation">
+            <div class="mb-2 mt-2">
+                <label class="form-label" for="rating">Rating: <span id="rating-value">3</span>/5</label>
+                <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range" value="3">
+            </div>
+           
+            <div class="mb-2 mt-2">
+                <label for="comment" class="form-label">Your Review</label>
+                <textarea name="review[comment]" id="comment" rows="5" class="form-control" required placeholder="Share your experience..."></textarea>
+                <div class="invalid-feedback">
+                    Please provide a review comment.
+                </div>
+            </div>
+            <button class="btn btn-outline-dark">Submit Review</button>
+        </form>
+    </div>
+
+    <script>
+        // Update rating value display when slider changes
+        document.getElementById('rating').addEventListener('input', function() {
+            document.getElementById('rating-value').textContent = this.value;
+        });
+        
+        // Form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </body>

@@ -30,7 +30,7 @@ async function main() { await mongoose.connect(MONGO_URL) };
 
 // root route
 app.get("/", (req, res) => {
-    res.send("Root");
+    res.render("home.ejs");
 });
 
 const validateListing = (req,res,next) =>{
@@ -42,6 +42,22 @@ const validateListing = (req,res,next) =>{
         next();
     }
 }
+
+// route to destination
+app.get("/destination" , (req,res)=>{
+    res.render("destination.ejs");
+});
+
+// route to about us
+app.get("/aboutus", (req,res)=>{
+    res.render("aboutus.ejs");
+});
+
+// route to about us
+app.get("/contact", (req,res)=>{
+    res.render("contact.ejs");
+});
+
 
 // Route to render the SIGNUP form
 app.get("/signup", (req, res) => {
@@ -133,7 +149,7 @@ app.post("/listings",
 // 4. SHOW ROUTE - Show one specific listing
 app.get("/listings/:id", asyncWrap(async (req, res) => {
     let { id } = req.params;
-    const singleList = await Listing.findById(id);
+    const singleList = await Listing.findById(id).populate("reviews");
     res.render("show.ejs", { singleList });
 }));
 

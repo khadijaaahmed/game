@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveler - Explore Amazing Destinations</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF6B6B;
+            --secondary-color: #4ECDC4;
+            --accent-color: #FFD166;
+            --purple-color: #9B5DE5;
+            --blue-color: #118AB2;
+            --dark-color: #073B4C;
+            --light-color: #F8F9FA;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            background: linear-gradient(90deg, var(--primary-color), var(--purple-color));
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8), rgba(155, 93, 229, 0.8)), url('') center/cover no-repeat;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 56px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-content p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .country-section {
+            padding: 80px 0;
+        }
+        
+        .country-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .country-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--dark-color);
+            display: inline-block;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .country-title::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--purple-color));
+            bottom: -10px;
+            left: 10%;
+            border-radius: 10px;
+        }
+        
+        .destination-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            background: white;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .destination-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .card-title {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .card-text {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .btn-explore {
+            background: linear-gradient(45deg, var(--secondary-color), var(--blue-color));
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-explore:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            margin: 40px 0;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark-color), #052a37);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-heading {
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary-color);
+            bottom: -8px;
+            left: 0;
+            border-radius: 10px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #bdc3c7;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .country-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Traveler</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Destinations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Packages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Your Destinations</h1>
+            <p>Explore the world's most amazing places with Traveler</p>
+        </div>
+    </section>
+
+    <!-- Dubai Section -->
+    <section class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <h2 class="country-title">Dubai</h2>
+                <p class="lead">Experience luxury, innovation, and Arabian charm in the heart of the UAE</p>
+            </div>
+            
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1597659840241-37e2b9c2f55f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YnVyaiUyMGtoYWxpZmF8ZW58MHx8MHx8fDA%3D" class="card-img-top" alt="Burj Khalifa">
+                        <div class="card-body">
+                            <h5 class="card-title">Burj Khalifa</h5>
+                            <p class="card-text">The world's tallest building offering breathtaking views of Dubai.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGFsbSUyMGp1bWVpcmFofGVufDB8fDB8fHww" class="card-img-top" alt="Palm Jumeirah">
+                        <div class="card-body">
+                            <h5 class="card-title">Palm Jumeirah</h5>
+                            <p class="card-text">An artificial archipelago known for luxury resorts and stunning beaches.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1683304608482-b3b1a4bd1400?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGR1YmFpJTIwbWFsbHxlbnwwfHwwfHx8MA%3D%3D" class="card-img-top" alt="Dubai Mall">
+                        <div class="card-body">
+                            <h5 class="card-title">Dubai Mall</h5>
+                            <p class="card-text">One of the world's largest shopping malls with endless entertainment.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 4 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1718564257683-1e4caf9b049a?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Dubai Fountain">
+                        <div class="card-body">
+                            <h5 class="card-title">Dubai Fountain</h5>
+                            <p class="card-text">The world's largest choreographed fountain system set on the Burj Khalifa Lake.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 5 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1695878868496-fcbd6ef47f57?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZGVzZXJ0JTIwc2FmYXJpfGVufDB8fDB8fHww" class="card-img-top" alt="Desert Safari">
+                        <div class="card-body">
+                            <h5 class="card-title">Desert Safari</h5>
+                            <p class="card-text">Experience dune bashing, camel rides, and traditional Bedouin culture.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 6 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1677151420167-b2de389d02db?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGR1YmFpJTIwbWFyaW5hfGVufDB8fDB8fHww" class="card-img-top" alt="Dubai Marina">
+                        <div class="card-body">
+                            <h5 class="card-title">Dubai Marina</h5>
+                            <p class="card-text">A breathtaking man-made marina with stunning skyscrapers and waterfront dining.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+
+    <!-- Malaysia Section -->
+    <section class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <h2 class="country-title">Malaysia</h2>
+                <p class="lead">Discover a vibrant blend of cultures, stunning nature, and modern cities</p>
+            </div>
+            
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1719484072989-a0fd05e837eb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHBldHJvbmFzJTIwdG93ZXJzfGVufDB8fDB8fHww" class="card-img-top" alt="Petronas Towers">
+                        <div class="card-body">
+                            <h5 class="card-title">Petronas Towers</h5>
+                            <p class="card-text">Iconic twin towers in Kuala Lumpur with a stunning sky bridge.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1679754917082-4310c7f1d104?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bGFua2F3aXxlbnwwfHwwfHx8MA%3D%3D" class="card-img-top" alt="Langkawi">
+                        <div class="card-body">
+                            <h5 class="card-title">Langkawi</h5>
+                            <p class="card-text">A beautiful archipelago of 99 islands with pristine beaches.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://plus.unsplash.com/premium_photo-1678303397238-76250a5ebf73?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmF0dSUyMGNhdmVzfGVufDB8fDB8fHww" class="card-img-top" alt="Batu Caves">
+                        <div class="card-body">
+                            <h5 class="card-title">Batu Caves</h5>
+                            <p class="card-text">Limestone hills with caves and temples, featuring a giant golden statue.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+
+    <!-- Maldives Section -->
+    <section class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <h2 class="country-title">Maldives</h2>
+                <p class="lead">Paradise on earth with crystal clear waters and overwater bungalows</p>
+            </div>
+            
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1637576308588-6647bf80944d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b3ZlcndhdGVyJTIwYnVuZ2Fsb3d8ZW58MHx8MHx8fDA%3D" class="card-img-top" alt="Overwater Bungalows">
+                        <div class="card-body">
+                            <h5 class="card-title">Overwater Bungalows</h5>
+                            <p class="card-text">Luxurious accommodations perched above turquoise lagoons.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1580019542155-247062e19ce4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGNvcmFsJTIwcmVlZnN8ZW58MHx8MHx8fDA%3D" class="card-img-top" alt="Coral Reefs">
+                        <div class="card-body">
+                            <h5 class="card-title">Coral Reefs</h5>
+                            <p class="card-text">Vibrant underwater ecosystems perfect for snorkeling and diving.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1618270352864-fa8550f33446?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJpdmF0ZSUyMGlzbGFuZHxlbnwwfHwwfHx8MA%3D%3D" class="card-img-top" alt="Private Islands">
+                        <div class="card-body">
+                            <h5 class="card-title">Private Islands</h5>
+                            <p class="card-text">Exclusive resorts on secluded islands for the ultimate getaway.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+
+    <!-- England Section -->
+    <section class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <h2 class="country-title">England</h2>
+                <p class="lead">Rich history, royal heritage, and charming countryside landscapes</p>
+            </div>
+            
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1588064011404-57a7bc7133f5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmlnJTIwYmVufGVufDB8fDB8fHww" class="card-img-top" alt="Big Ben">
+                        <div class="card-body">
+                            <h5 class="card-title">Big Ben & Parliament</h5>
+                            <p class="card-text">Iconic London landmarks representing British history and government.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1595878263670-8db8723ce4fa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c3RvbmVoZW5nZXxlbnwwfHwwfHx8MA%3D%3D" class="card-img-top" alt="Stonehenge">
+                        <div class="card-body">
+                            <h5 class="card-title">Stonehenge</h5>
+                            <p class="card-text">Ancient mysterious stone circle dating back thousands of years.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1590968802199-d11d978379f2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y290c3dvbGRzfGVufDB8fDB8fHww" class="card-img-top" alt="Cotswolds">
+                        <div class="card-body">
+                            <h5 class="card-title">Cotswolds</h5>
+                            <p class="card-text">Picturesque villages with honey-colored stone houses and rolling hills.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+
+    <!-- Turkey Section -->
+    <section class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <h2 class="country-title">Turkey</h2>
+                <p class="lead">Where East meets West with breathtaking landscapes and ancient history</p>
+            </div>
+            
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1683874350903-8151d987fef4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aGFnaWElMjBzb3BoaWF8ZW58MHx8MHx8fDA%3D" class="card-img-top" alt="Hagia Sophia">
+                        <div class="card-body">
+                            <h5 class="card-title">Hagia Sophia</h5>
+                            <p class="card-text">An architectural marvel with a rich history as church and mosque.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1559783510-c448bd7d686b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FwcGFkb2NpYSUyMHR1cmtleXxlbnwwfHwwfHx8MA%3D%3D" class="card-img-top" alt="Cappadocia">
+                        <div class="card-body">
+                            <h5 class="card-title">Cappadocia</h5>
+                            <p class="card-text">Famous for its unique rock formations and hot air balloon rides.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                    <div class="card destination-card">
+                        <img src="https://images.unsplash.com/photo-1695589593603-129adfecac13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGFtdWtrYWxlfGVufDB8fDB8fHww" class="card-img-top" alt="Pamukkale">
+                        <div class="card-body">
+                            <h5 class="card-title">Pamukkale</h5>
+                            <p class="card-text">Stunning white terraces of mineral-rich thermal waters.</p>
+                            <a href="#" class="btn btn-explore">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-heading">Traveler</h5>
+                    <p>Your trusted partner for unforgettable journeys and experiences that last a lifetime.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/i/flow/login"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.snapchat.com/"><i class="fab fa-snapchat"></i></a>
+                      
+                      
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-light">Home</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">Destinations</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">Packages</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5 class="footer-heading">Support</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-light">Contact Us</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">FAQ</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-heading">Newsletter</h5>
+                    <p>Subscribe to our newsletter for the latest travel deals and inspiration.</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Your email address" aria-label="Email">
+                        <button class="btn btn-outline-light" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="copyright">
+                        <p>&copy; 2023 Traveler. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
